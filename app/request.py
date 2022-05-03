@@ -1,6 +1,6 @@
 from app import app
 import urllib.request,json
-from .models import news
+from .models import *
 
 
 #Getting api key
@@ -30,7 +30,7 @@ def get_sources():
     return source_results
 
 
-def process_results(source_list):
+def process_source_results(source_list):
     '''
     Function  that processes the source result and transform them to a list of Objects
    
@@ -86,7 +86,7 @@ def process_topHeadlines_results(topHeadlines_results_list):
     publishedAt = topHeadlines_item.get('publishedAt')
     content = topHeadlines_item.get('content')
 
-    topHeadlines_object = TopHeadlines(id, name, title, description, url, urlToImage, publishedAt, content)
+    topHeadlines_object = TopHeadlines(id, name, author, title, description, url, urlToImage, publishedAt, content)
     topHeadlines_results.append(topHeadlines_object)
      
     return topHeadlines_results
