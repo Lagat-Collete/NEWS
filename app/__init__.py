@@ -1,13 +1,22 @@
 from flask import Flask
-from .config import DevConfig
-from app import error
+from  config import config_options
 
-#Initializing application
-app = Flask(__name__,instance_relative_config = True)
+def create_app(config_name):
+  app = Flask(__name__)
+  #newsapi = NewsApiClient
+  #creating app configurations
+  app.config.from_object(config_options[config_name])
+  app.config.from_pyfile('config.py')
+  #Initializing flask extensions
 
-# Setting up configuration
-app.config.from_object(DevConfig)
-app.config.from_pyfile('config.py')
 
+  #Registering blueprint
+  from .main import main as main_blueprint
 
-from app import views
+  app.register_blueprint(main_blueprint)
+
+  #setting config
+  from.request import configure_request
+  configure_request(app)
+
+  return app
