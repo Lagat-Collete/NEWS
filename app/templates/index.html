@@ -1,16 +1,41 @@
 {% extends 'base.html'%}
 {% import 'macros.html' as macro%}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        {% if title %}
-        <title> {{ title }}</title>
-        {% else %}
-        <title> Welcome to your best news source </title>
-        {% endif %}
-    </head>
-    <body>
-    {{macro displayNewsSources(source_list)}}
-    </body>
-</html>
+{% import 'trendingColumn.html' as trending%}
+<!-- style block -->
+{% block style%} {{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> 
+{% endblock%}
+<!-- content block -->
+{% block content %}
+
+<!-- News Source -->
+<div class="container-fluid">
+    <div class="row container-fluid bg-body">
+        <div class="col-md-3">
+            <h2> News Sources </h2>
+            <div class="card"> 
+                {{ macro.dosplayNewsSources(source_list)}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>Top Headlines</h2>
+            <div class=" overflow-auto" style="height: 65vh;">
+            <div class="col">
+                {{ trending.displayNewsSourcess(top_headlines)}}
+            </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h2>Articles</h2>
+            <div class=" overflow-auto" style="height: 65vh;">
+            {% for article in articles %}
+            <div class="card">
+                <p> Source:{{article.source.name}}</p>
+                {{article.title}} <span><a href="{{article.url}}">Read more</a></span>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
