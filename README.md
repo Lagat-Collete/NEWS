@@ -1,5 +1,5 @@
-# NEWS
-# DESCRIPTION
+### NEWS
+### DESCRIPTION
 an application that list and preview news articles from various sources.
 #### latest version  May 2022
 #### By **Collete Mine**
