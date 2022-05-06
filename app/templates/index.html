@@ -1,41 +1,46 @@
-{% extends 'base.html'%}
-{% import 'macros.html' as macro%}
-{% import 'trendingColumn.html' as trending%}
-<!-- style block -->
-{% block style%} {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> 
-{% endblock%}
+{% import 'macros.html' as macro %} 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 <!-- content block -->
 {% block content %}
 
-<!-- News Source -->
-<div class="container-fluid">
-    <div class="row container-fluid bg-body">
-        <div class="col-md-3">
-            <h2> News Sources </h2>
-            <div class="card"> 
-                {{ macro.dosplayNewsSources(source_list)}}
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h2>Top Headlines</h2>
-            <div class=" overflow-auto" style="height: 65vh;">
-            <div class="col">
-                {{ trending.displayNewsSourcess(top_headlines)}}
-            </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <h2>Articles</h2>
-            <div class=" overflow-auto" style="height: 65vh;">
-            {% for article in articles %}
+<h2>Top Headlines</h2>
+          {% for headline in headlines%}
+        <p>{{ headline.title}} </p>
+          <img src='{{ headline.urlToImage }}' >
+          <p>{{ headline.description}}</p>
+          <p>{{ headline.author }} Published At: {{headline.publishedAt}}</p>
+          <a href={{headline.url}}>Read More</a>
+                    
+                    {% endfor %}
+            
+            {% for source in source_list %}
             <div class="card">
-                <p> Source:{{article.source.name}}</p>
-                {{article.title}} <span><a href="{{article.url}}">Read more</a></span>
+              
+                <div class="">
+                  <img src='{{source.urlToImage}}' class="card-img-top" alt=" news image">
+                </div>
+                <div class=" ">
+                  <h3>{{source.title}}</h3>
+                  <p>By: {{source.author}} Published At: {{source.publishedAt}}</p>
+                  <p class="card-text">{{source.description}}</p>
+                  <a href={{source.url}}>Read More</a>
+                </div>
+    
+              </div>
+            </div>
+            <div class="container">
+             {% endfor%}
+            <h2>Top Articles</h2>
+            {% for article in articles %}
+            <div class="card" style="width: 500px; text-align: center;">
+              <img class="card-img-top" src="{{ article.urlToImage}}" style="width: 200px;" Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{ article.title}}</h5>
+                <p class="card-text">{{ article.description}}</p>
+                <p>{{ article.author }} Published At: {{article.publishedAt}}</p>
+                <a href="{{article.url}}" class="btn btn-primary">Read more</a>
+              </div>
             </div>
             {% endfor %}
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
+        {% endblock %}
