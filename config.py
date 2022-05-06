@@ -9,6 +9,7 @@ class Config:
     NEWS_HIGHLIGHT_API_BASE_URL = 'https://newsapi.org/v2/sources?apiKey={}'
     NEWS_EVERYTHING_URL =' https://newsapi.org/v2/everything?q=trending&language-en&apiKey={}'
     NEWS_HIGHLIGHT_API_KEY = environ.get('NEWS_API_KEY') 
+    SECRET_KEY='colletemine'
 
 class ProdConfig(Config):
     '''
