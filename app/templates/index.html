@@ -5,12 +5,12 @@
 {% block content %}
 
 <h2>Top Headlines</h2>
-          {% for headline in headlines%}
-        <p>{{ headline.title}} </p>
-          <img src='{{ headline.urlToImage }}' >
-          <p>{{ headline.description}}</p>
-          <p>{{ headline.author }} Published At: {{headline.publishedAt}}</p>
-          <a href={{headline.url}}>Read More</a>
+          {% for sourceHeadlines in sourceHeadlines %}
+        <p>{{ topHeadlines.title}} </p>
+          <img src='{{ topHeadlines.urlToImage }}' >
+          <p>{{ topHeadlines.description}}</p>
+          <p>{{ topHeadlines.author }} Published At: {{topHeadlines.publishedAt}}</p>
+          <a href={{topHeadlines.url}}>Read More</a>
                     
                     {% endfor %}
             

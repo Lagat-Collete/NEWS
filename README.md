@@ -21,7 +21,7 @@ an application that list and preview news articles from various sources.
 - Internet
 - A browser in the computer
 ## Known Bugs
- So far not aware of any.
+ The project is not working as expected.
 ## Technologies Used
 - Python-Flask to consume newsapi
 - CSS
