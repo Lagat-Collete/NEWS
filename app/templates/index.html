@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+<!-- <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -6,9 +8,30 @@
         <title> {{ title }}</title>
         {% else %}
         <title> Welcome to the best News website </title>
-        {% endif %}
-    </head>
-    <body>
+        {% endif %} -->
+    <!-- </head> -->
+    {% block styles%} {{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+ {% endblock %}
+    
+    {% block content %}
+    <div class="container">
+        <form>
+            <input type="text" name="article_query" placeholder="Search for a Article" class="form-control">
+            <input type="submit"  value="Submit" class="btn btn-default">
+        </form>
+    
+    </div>
+     <h3>Top Headlines</h3>
+     {{ macro displaySourceList(topHeadlines)}}
+     {{ trending.displayNewsSources(top_headlines)}}
 
-    </body>
-</html>
+     <h3>Articles</h3>
+     {% for article in articles %}
+     <p>Source:{{article.source.name}}</p>
+     {{article.title}}
+     <a href="{{article.url}}"> Read More</a>
+
+
+     {% endblock%}
+    

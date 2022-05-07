@@ -1,3 +1,18 @@
+class Source:
+  '''
+  Source class to define source objects
+  '''
+  def __init__(self, id, name, description, url, category, language, country):
+    self.id = id
+    self.name = name
+    self.description = description
+    self.url = url
+    self.category = category
+    self.language = language
+    self.country = country
+    
+
+
 class Articles:
   '''
   Articles class to define articles objects
@@ -12,19 +27,7 @@ class Articles:
     self.publishedAt = publishedAt
     self.content = content
 
-class Source:
-  '''
-  Source class to define source objects
-  '''
-  def __init__(self, id, name, description, url, category, language, country):
-    self.id = id
-    self.name = name
-    self.description = description
-    self.url = url
-    self.category = category
-    self.language = language
-    self.country = country
-    
+
 class TopHeadlines:
   ''' 
   live top and breaking headlines for a country, specific category in a country, single source, or multiple sources
@@ -39,3 +42,23 @@ class TopHeadlines:
     self.urlToImage = urlToImage
     self.publishedAt = publishedAt
     self.content = content
+
+
+    class Review:
+
+       all_reviews = []
+
+       def __init__(self,source,title,imageurl,review):
+            self.source = source
+            self.title = title
+            self.imageurl = imageurl
+            self.review = review
+
+
+    def save_review(self):
+            Review.all_reviews.append(self)
+
+
+    @classmethod
+    def clear_reviews(cls):
+            Review.all_reviews.clear()
