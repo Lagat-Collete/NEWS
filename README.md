@@ -14,7 +14,7 @@ an application that list and preview news articles from various sources.
 3. Open in code editor and edit
 
 ## How to use
-1. Open your browser and paste this link []
+1. Open your browser and paste this link [https://newsmine.herokuapp.com/]
 
    
 ## Setup/Installation Requirements
