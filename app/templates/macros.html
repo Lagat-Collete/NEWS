@@ -1,5 +1,18 @@
-{% macro displaySourceList(source_list) %}
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+<div class="row">
+<div class="card col-md-6">
+{% macro displayNewsSources(source_list) %}
   {% for source in source_list %}
-  <a href="/source?name={{source.id}}">{{source.name}}</a>
+  
+    <a href="/source_articles/{{source.id}}">{{source.name}}</a>
+    <p>{{source.description}}</p>
+  
   {% endfor%}
  {% endmacro %}
+</div>
+</div>
+  
+ 
+
+

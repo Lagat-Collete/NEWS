@@ -1,37 +1,45 @@
 {% extends 'base.html'%}
 {% import 'macros.html' as macro%}
-<!-- <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        {% if title %}
-        <title> {{ title }}</title>
-        {% else %}
-        <title> Welcome to the best News website </title>
-        {% endif %} -->
-    <!-- </head> -->
+
+
     {% block styles%} {{ super() }}
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
- {% endblock %}
+   {% endblock %}
     
     {% block content %}
     <div class="container">
-        <form>
-            <input type="text" name="article_query" placeholder="Search for a Article" class="form-control">
-            <input type="submit"  value="Submit" class="btn btn-default">
-        </form>
     
     </div>
-     <h3>Top Headlines</h3>
-     {{ macro displaySourceList(topHeadlines)}}
-     {{ trending.displayNewsSources(top_headlines)}}
-
-     <h3>Articles</h3>
-     {% for article in articles %}
-     <p>Source:{{article.source.name}}</p>
-     {{article.title}}
-     <a href="{{article.url}}"> Read More</a>
-
-
-     {% endblock%}
-    
+    <div class="container">
+        <h3>Various News Sources</h3>
+        <div class="science">
+            <h4>Science</h4>
+            {{ macro.displayNewsSources(science)}}
+        </div>
+        <br><br>
+        <div class="health">
+            <h4>Health</h4>
+            {{ macro.displayNewsSources(health)}}
+        </div>
+        <br><br>
+        <div class="business">
+            <h4>Business</h4>
+            {{ macro.displayNewsSources(business)}}
+        </div>
+        <br><br>
+        <div class="technology">
+            <h4>Technology</h4>
+            {{ macro.displayNewsSources(technology)}}
+        </div>
+        <br><br>
+        <div class="entertainment">
+            <h4>Entertainment</h4>
+            {{ macro.displayNewsSources(entertainment)}}
+        </div>
+        <br><br>
+         <div class="sports">
+             <h4 style="color: gray;">SPORT</h4>
+            {{ macro.displayNewsSources(sports)}}
+         </div>
+    </div>
+      {% endblock%}

@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for source in source_list%}
-<img src='{{source.urlToImage}}' alt="...">
-<h5>{{source.title}}</h5>
-<p>{{source.author}} Published At:{{source.publishedAt}}</p>
-<p>{{source.description}}</p>
-<a href="{{source.url}}">Read More</a>
+<h2>Top HeadLines</h2>
+{% for source_article in source_articles%}
+<img src='{{source_article.urlToImage}}' alt="...">
+<h5>{{source_article.title}}</h5>
+<p>{{source_article.author}} Published At:{{source_article.publishedAt}}</p>
+<p>{{source_article.description}}</p>
+<a href="{{source_article.url}}">Read More</a>
 {% endfor %}
 {% endblock %}

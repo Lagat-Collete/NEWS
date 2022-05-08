@@ -11,26 +11,27 @@ headlines_url = None
 #getting everything url
 articles_url = None
 #obtaining articles for specific source
-source_healine_url = None
+source_headline_url = None
 
 def configure_request(app):
-  global api_key, base_url, headlines_url, articles_url, source_healine_url
+  global api_key, base_url, headlines_url, articles_url, source_headline_url
   api_key = app.config['NEWS_HIGHLIGHT_API_KEY']
   base_url = app.config['NEWS_HIGHLIGHT_API_BASE_URL']
   headlines_url = app.config['NEWS_HEADLINES_URL']
-  source_healine_url = app.config[' SOURCE_HEADLINE_URL']
+  source_headline_url = app.config['SOURCE_HEADLINE_URL']
+  articles_url=app.config['ARTICLE_BASE_URL']
 
-def get_sources():
+def get_sources(category):
   '''
   Function that gets the json response to our url request
   '''
-  print( 'api_key'f'{base_url}{api_key}')
-  get_sources_url = base_url.format(api_key)
+
+  get_sources_url = base_url.format(category,api_key)
 
   with urllib.request.urlopen(get_sources_url) as url:
     get_sources_data = url.read()
     get_sources_response = json.loads(get_sources_data)
-    print('results', get_sources_response)
+
 
     source_results = None
 
@@ -66,7 +67,7 @@ def process_source_results(source_list):
 
 def get_topHeadlines():
   get_topHeadlines_url = headlines_url.format(api_key)
-  print('get_topHeadlines_url',get_topHeadlines_url)
+  
 
   with urllib.request.urlopen(get_topHeadlines_url) as url:
     topHeadlines_data = url.read()
@@ -78,25 +79,22 @@ def get_topHeadlines():
       topHeadlines_results_list = topHeadlines_response['articles']
       topHeadlines_results = process_topHeadlines_results(topHeadlines_results_list)
 
-  print('topHeadlines_results', topHeadlines_results)
   return(topHeadlines_results)
 
 def get_sourceHeadlines(source):
-  get_sourceHeadlines_url = source_healine_url.format(source, api_key)
-  print('get_sourceHeadlines_url', get_sourceHeadlines_url)
-
+  get_sourceHeadlines_url = source_headline_url.format(source, api_key)
+  
   with urllib.request.urlopen(get_sourceHeadlines_url) as url :
     sourceHeadlines_data = url.read()
     sourceHeadlines_response = json.loads(sourceHeadlines_data)
-    print(sourceHeadlines_response)
-
+    
     sourceHeadlines_results = None
 
     if sourceHeadlines_response['status'] == 'ok' :
       sourceHeadlines_results_list = sourceHeadlines_response['articles']
       sourceHeadlines_results = process_articles_results(sourceHeadlines_results_list)
 
-  print('topHeadlines_results', sourceHeadlines_results)
+
   return(sourceHeadlines_results)
 
 def process_topHeadlines_results(topHeadlines_results_list) :
@@ -122,11 +120,11 @@ def process_topHeadlines_results(topHeadlines_results_list) :
      
   return topHeadlines_results
 
-def get_articles():
+def get_articles(id):
     '''
     get the json response to  our url request for all the articles
     '''
-    get_articles_url = articles_url.format(api_key)
+    get_articles_url = articles_url.format(id,api_key)
 
     with urllib.request.urlopen(get_articles_url) as url :
       get_articles_data = url.read()
@@ -154,15 +152,16 @@ def process_articles_results(articles_results_list):
     urlToImage = articles_item.get('urlToImage')
     publishedAt = articles_item.get('publishedAt')
     content = articles_item.get('content')
-
-    articles_object = Articles(source, author, title, description, url, urlToImage, publishedAt, content)
-    articles_results.append(articles_object)
+    
+    if urlToImage:
+      articles_object = Articles(source, author, title, description, url, urlToImage, publishedAt, content)
+      articles_results.append(articles_object)
      
   return articles_results
 
 
 def search_article(article):
-  search_article_url = 'https://newsapi.org/v2/search/everything?apiKey={}&query={}'.format(api_key,article)
+  search_article_url='https://newsapi.org/v2/search/everything?apiKey={}&query={}'.format(api_key,article)
   with urllib.request.urlopen(search_article_url) as url:
       search_article_data = url.read()
       search_article_response = json.loads(search_article_data)
@@ -171,7 +170,7 @@ def search_article(article):
 
       if search_article_response['results']:
           search_article_list = search_article_response['results']
-          search_article_results = process_results(search_article_list)
+          search_article_results = process_result(search_article_list)
 
 
   return search_article_results
