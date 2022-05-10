@@ -1,6 +1,5 @@
 {%macro displayNewsSources(source_list)%} {% for source in source_list%}
-<div class="card shadow p-2" style="height: 2rem;font-family: 'Abril Fatface', cursive;
-;">
+<div class="card shadow p-2" style="height: 2rem;font-family: 'Abril Fatface', cursive;">
   <span><a href="/source?name={{source.id}}">{{source.name}}</a></span>
 </div>{% endfor %} {%endmacro%}
  
