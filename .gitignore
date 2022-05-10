@@ -2,9 +2,6 @@ virtual/
 *.pyc
 instance/
 
-# directories
-**/__pycache__/
-
 # if you use vscode
 .vscode/
 

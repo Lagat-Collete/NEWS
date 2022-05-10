@@ -1,32 +1,33 @@
 import os
 
 
-class Config:
+class config:
   '''
   General configuration parent class
   '''
-  NEWS_HEADLINES_URL='https://newsapi.org/v2/top-headlines?country=us&apiKey={}'
-  SOURCE_HEADLINE_URL='https://newsapi.org/v2/top-headlines/sources={}apiKey={}'
-  NEWS_HIGHLIGHT_API_BASE_URL='https://newsapi.org/v2/sources?language=en&category={}&apiKey={}'
-  ARTICLE_BASE_URL = 'https://newsapi.org/v2/everything?language=en&sources={}&apiKey={}'
-  NEWS_HIGHLIGHT_API_KEY=os.environ.get('NEWS_API_KEY')
+  NEWS_HEADLINES_URL = 'https://newsapi.org/v2/top-headlines?country=us&apiKey={}' 
+  SOURCE_HEADLINE_URL = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'
+  NEWS_HIGHLIGHT_API_BASE_URL = 'https://newsapi.org/v2/sources?apikey={}'
+  NEWS_EVERYTHING_URL = 'https://newsapi.org/v2/everything?q=trending&language=en&apiKey={}'
+  NEWS_HIGHLIGHT_API_KEY=os.environ.get('API_KEY')
 
 
-class ProdConfig(Config):
+class ProdConfig(config):
   '''
-   Production  configuration child class
-   Args:
-       Config:The parent configuration class with General configuration settings
+  Production configuration child class
+  args:
+       Config: the parent configuration class with General configuration settings
   '''
   pass
 
-class DevConfig(Config):
+class DevConfig(config):
   '''
   Development configuration child class
-  Args:
-      Config: The parent configuration class with General configuration settigs
+  args: 
+        config: the parent configuration class with General configuration settings
   '''
-  DEBUG = True
+
+  Debug = True
 
 config_options = {
 'development':DevConfig,

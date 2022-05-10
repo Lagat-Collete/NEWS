@@ -1,45 +1,39 @@
-{% extends 'base.html'%}
-{% import 'macros.html' as macro%}
+{% extends 'base.html' %} {% import 'macros.html' as macro %}{% import 'trendingColumn.html' as trending %}
+<!-- Styles block -->
+{% block styles%} {{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %}
+<!-- Content block  -->
+{% block content %}
 
-
-    {% block styles%} {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
-   {% endblock %}
-    
-    {% block content %}
-    <div class="container">
-    
+<!-- News Sources  -->
+<div class="container-fluid">
+  <div class="row container-fluid bg-body">
+    <div class="col-md-3">
+      <h2 style="font-family:'Times New Roman', Times, serif; font-weight: 500;">News Sources </h2>
+      <div class="card shadow overflow-auto">
+        {{ macro.displayNewsSources(source_list)}}
+      </div>
     </div>
-    <div class="container">
-        <h3>Various News Sources</h3>
-        <div class="science">
-            <h4>Science</h4>
-            {{ macro.displayNewsSources(science)}}
+    <div class="col-md-6 ">
+      <h2 style="font-family:'Times New Roman', Times, serif;font-weight: 500;">Top Headlines</h2>
+      <div class="overflow-auto">
+        <div class="col">
+          {{ trending.displayNewsSources(top_headlines)}}
         </div>
-        <br><br>
-        <div class="health">
-            <h4>Health</h4>
-            {{ macro.displayNewsSources(health)}}
-        </div>
-        <br><br>
-        <div class="business">
-            <h4>Business</h4>
-            {{ macro.displayNewsSources(business)}}
-        </div>
-        <br><br>
-        <div class="technology">
-            <h4>Technology</h4>
-            {{ macro.displayNewsSources(technology)}}
-        </div>
-        <br><br>
-        <div class="entertainment">
-            <h4>Entertainment</h4>
-            {{ macro.displayNewsSources(entertainment)}}
-        </div>
-        <br><br>
-         <div class="sports">
-             <h4 style="color: gray;">SPORT</h4>
-            {{ macro.displayNewsSources(sports)}}
-         </div>
+      </div>
     </div>
-      {% endblock%}
+    <div class="col-md-3" style="font-family:'Times New Roman', Times, serif;">
+      <h2 style="font-weight:500;">Articles</h2>
+      <div class=" overflow-auto">
+        {% for article in articles %}
+        <div class="card shadow p-1" style="border-radius: 4px;background-color: gray;">
+          <p> Source:<span style="font-weight: bold;">{{article.source.name}}</p>
+          {{article.title}}
+          <a href="{{article.url}}"> Read more</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}>
