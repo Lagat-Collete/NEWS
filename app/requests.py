@@ -19,18 +19,19 @@ def configure_request(app):
   base_url = app.config['NEWS_HIGHLIGHT_API_BASE_URL']
   headlines_url = app.config['NEWS_HEADLINES_URL']
   source_headline_url = app.config['SOURCE_HEADLINE_URL']
-  articles_url=app.config['ARTICLE_BASE_URL']
+  articles_url=app.config['NEWS_EVERYTHING_URL']
 
-def get_sources(category):
+def get_sources():
   '''
   Function that gets the json response to our url request
   '''
-
-  get_sources_url = base_url.format(category,api_key)
+  print('api-key', f'{base_url}{api_key}')
+  get_sources_url = base_url.format(api_key)
 
   with urllib.request.urlopen(get_sources_url) as url:
     get_sources_data = url.read()
     get_sources_response = json.loads(get_sources_data)
+    print('results', get_sources_response)
 
 
     source_results = None
@@ -67,7 +68,7 @@ def process_source_results(source_list):
 
 def get_topHeadlines():
   get_topHeadlines_url = headlines_url.format(api_key)
-  
+  print('get_topHeadlines_url', get_topHeadlines_url)
 
   with urllib.request.urlopen(get_topHeadlines_url) as url:
     topHeadlines_data = url.read()
@@ -78,23 +79,25 @@ def get_topHeadlines():
     if topHeadlines_response['status'] == 'ok':
       topHeadlines_results_list = topHeadlines_response['articles']
       topHeadlines_results = process_topHeadlines_results(topHeadlines_results_list)
-
+  print('topHeadlines_results', topHeadlines_results)
   return(topHeadlines_results)
 
 def get_sourceHeadlines(source):
   get_sourceHeadlines_url = source_headline_url.format(source, api_key)
-  
+  print('get_sourceHeadlines_url', get_sourceHeadlines_url)
+
   with urllib.request.urlopen(get_sourceHeadlines_url) as url :
     sourceHeadlines_data = url.read()
     sourceHeadlines_response = json.loads(sourceHeadlines_data)
-    
+    print(sourceHeadlines_response)
+
     sourceHeadlines_results = None
 
     if sourceHeadlines_response['status'] == 'ok' :
       sourceHeadlines_results_list = sourceHeadlines_response['articles']
       sourceHeadlines_results = process_articles_results(sourceHeadlines_results_list)
 
-
+  print('topHeadlines_results', sourceHeadlines_results)
   return(sourceHeadlines_results)
 
 def process_topHeadlines_results(topHeadlines_results_list) :
@@ -120,11 +123,11 @@ def process_topHeadlines_results(topHeadlines_results_list) :
      
   return topHeadlines_results
 
-def get_articles(id):
+def get_articles():
     '''
     get the json response to  our url request for all the articles
     '''
-    get_articles_url = articles_url.format(id,api_key)
+    get_articles_url = articles_url.format(api_key)
 
     with urllib.request.urlopen(get_articles_url) as url :
       get_articles_data = url.read()
@@ -138,7 +141,7 @@ def get_articles(id):
         
     return articles_results
 
-def process_articles_results(articles_results_list):
+def process_articles_results(articles_results_list) :
   '''
   process top articles results and transform them to a list of objects
   '''

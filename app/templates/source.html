@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 <!-- Content block  -->
 {% block content %}
-<div class="container-fluid">
-  <div class="row container-fluid bg-body">
+<div class="container">
+  <div class="row">
     <div class="col">
       <h2>Top Headlines</h2>
-      <div class="overflow-hidden ">
+      <div class="overflow-auto">
         {% for source in source_list%}
-        <div class="card shadow-lg p-2 mb-3 bg-body rounded">
+        <div class="card ">
           <div class="row container-fluid">
             <div class="col-md-6">
               <img src={{source.urlToImage}} class="card-img-top " style='width: 100%;' alt="...">
